@@ -35,10 +35,7 @@ const PlaceSearch = () => {
   const handlePlaceSelect = (place) => {
     setSelectedPlace(place);
     setQuery(place.description);
-    console.log(place.description);
-    console.log(place.place_id);
     setPlaceid(place.place_id);
-    console.log(place);
     setResults([]); // Hide the dropdown list after selection
   };
 

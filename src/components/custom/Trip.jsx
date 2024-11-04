@@ -81,7 +81,7 @@ const Trip = () => {
       try {
         await loginWithRedirect();
         const token = await getAccessTokenSilently(); // Get the token after logging in
-        console.log("Token:", token); // Log the token
+        // console.log("Token:", token); // Log the token
       } catch (error) {
         console.error("Error getting token:", error);
       }
@@ -118,7 +118,7 @@ const Trip = () => {
     try {
       const result = await chatSession.sendMessage(FINAL_PROMPT);
       if (result && result.response && result.response.text) {
-        console.log(result.response.text());
+        // console.log(result.response.text());
         await SaveAiTrip(result.response.text()); // Await here to ensure save completes
       } else {
         console.error("No response text available.");
@@ -146,7 +146,7 @@ const Trip = () => {
         EmailId: user.email, // Get user email
         id: docId,
       });
-      console.log("Trip saved successfully!");
+      // console.log("Trip saved successfully!");
       toast.success("Trip saved successfully!");
       Navigate(`/view-trip/${docId}`);
     } catch (error) {
@@ -178,8 +178,8 @@ const Trip = () => {
 
         <div className="flex flex-col gap-10">
           {/* Destination */}
-          <div className="mt-20">
-            <h2 className="text-xl my-3">
+          <div className="mt-14">
+            <h2 className="text-xl ">
               What is your destination of choice?
             </h2>
             <div className="relative w-full">
@@ -229,7 +229,7 @@ const Trip = () => {
 
           {/* Budget */}
           <div>
-            <h2 className="text-xl mt-9">What is your budget?</h2>
+            <h2 className="text-xl mt-6">What is your budget?</h2>
             <div className="grid grid-cols-3 gap-5 mt-5">
               {SelectBudgetOptions.map((item, index) => (
                 <div
@@ -249,7 +249,7 @@ const Trip = () => {
 
           {/* Travelers */}
           <div>
-            <h2 className="text-xl mt-9">Who is traveling?</h2>
+            <h2 className="text-xl mt-4">Who is traveling?</h2>
             <div className="grid grid-cols-3 gap-5 mt-5">
               {SelectTravelesList.map((item, index) => (
                 <div
@@ -265,14 +265,14 @@ const Trip = () => {
                 </div>
               ))}
             </div>
-          </div>
-
-          {/* Generate Trip Button */}
-          <div className="mt-10">
-            <Button type="submit" disabled={loading}>
+          <div className=" mx-[490px]">
+            <Button type="submit" disabled={loading} className="ml-[500px] mb-[80px] h-14 ">
               {loading ? "Generating..." : "Generate Trip"}
             </Button>
           </div>
+          </div>
+
+          {/* Generate Trip Button */}
         </div>
       </form>
 

@@ -2,23 +2,23 @@ import { GETPLACEDETAILS, PHOTO_REF_URL } from "@/components/service/GlobalApi";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const PlaceCardItem = ({ place }) => {
-  // console.log(place);
-  const [photourl, SetPhotourl] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [placeData, setPlaceData] = useState(null);
-  const [error, setError] = useState(null);
+const HotelCardItem = ({ hotel }) => {
+//   console.log(hotel);
+const [loading, setLoading] = useState(false);
+const [placeData, setPlaceData] = useState(null);
+const [error, setError] = useState(null);
+const [photourl, SetPhotourl] = useState("");
 
   useEffect(() => {
     Getplacephoto();
-  }, [place]);
+  }, [hotel]);
 
   const Getplacephoto = async () => {
     try {
       setLoading(true);
 
-      const destination = place.placeName;
-      //   console.log("Destination:", destination);
+      const destination = hotel.hotelName;
+    //   console.log("Destination:", destination);
 
       if (!destination || typeof destination !== "string") {
         console.error("Invalid destination:", destination);
@@ -32,8 +32,6 @@ const PlaceCardItem = ({ place }) => {
         `{Name}`,
         result.data.results[0].photos[0].photo_reference
       );
-      // console.log(result);
-      // console.log(PhotoUrl);
       SetPhotourl(PhotoUrl);
 
       if (
@@ -52,31 +50,32 @@ const PlaceCardItem = ({ place }) => {
       setLoading(false);
     }
   };
-
   return (
     <Link
       to={
         "https://www.google.com/maps/search/?api=1&query=" +
-        encodeURIComponent(place?.placeName)
+        encodeURIComponent(hotel?.hotelName + " " + hotel?.hotelAddress)
       }
       target="_blank"
-      className="hover:scale-105 transition-all cursor-pointer"
+      className="hover:scale-105 transition-all cursor-pointer text-bold"
     >
-      <div className="bg-blue-50 border rounded-xl p-4 shadow-md hover:shadow-lg transition-shadow flex gap-4">
+      <div className="bg-blue-50 p-4 rounded-lg shadow-md">
         <img
           src={photourl}
-          alt={place.placeName}
-          className="w-32 h-32 object-cover rounded-lg"
+          alt={hotel?.hotelName}
+          className="w-full h-40 object-cover rounded-md mb-4"
         />
-        <div>
-          <h3 className="font-bold text-lg text-black">{place.placeName}</h3>
-          <p className="text-sm text-gray-600">{place.placeDetails}</p>
-          <p className="text-sm text-gray-600">
-            Time to travel: {place.timeToTravel}
-          </p>
+        <div className="text-center">
+          <h3 className="font-semibold text-lg text-blue-800">
+            {hotel?.hotelName}
+          </h3>
+          <p className="text-gray-600 text-sm">📍 {hotel?.hotelAddress}</p>
+          <p className="text-blue-700 text-sm">💵 {hotel?.price}</p>
+          <p className="text-yellow-500 text-sm">⭐ {hotel?.rating} stars</p>
         </div>
       </div>
     </Link>
   );
 };
-export default PlaceCardItem;
+
+export default HotelCardItem;

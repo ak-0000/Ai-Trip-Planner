@@ -5,6 +5,7 @@ import Trip from "./components/custom/Trip";
 import Body from "./components/custom/body";
 import Feed from "./components/custom/Feed";
 import ViewTrip from "./components/viewTrip/Tripid";
+import Mytrips from "./components/custom/Mytrips"
 
 
 
@@ -17,6 +18,7 @@ function App() {
             <Route path="/" element={<Feed />}></Route>
             <Route path="/create-trip" element={<Trip />}></Route>
             <Route path="/view-trip/:tripId" element={<ViewTrip/>}></Route>
+            <Route path = "/Mytrips" element= {<Mytrips/>}/>
           </Route>
         </Routes>
       </BrowserRouter>

@@ -1,23 +1,45 @@
+import { useState } from "react";
 import { LOGO_URL } from "../utils/constants";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useNavigate } from "react-router";
+import Mytrips from "./Mytrips";
 
 const Header = () => {
   const { user, loginWithRedirect, isAuthenticated, logout } = useAuth0();
-  console.log(user);
-
+  const [showLogout, setShowLogout] = useState(false);
+  const [showMytrips , setShowMytrips] = useState(true);
+  const Navigate = useNavigate();
+  
   return (
     <div className="bg-blue-400 h-24 flex items-center justify-between shadow-lg px-4">
-      <img className="h-16 w-auto" src={LOGO_URL} alt="logo" />
-      <div className="flex items-center">
+      <button onClick={() => {
+        setShowMytrips(true);
+        Navigate("/");
+      }}><img className="h-16 w-auto" src={LOGO_URL} alt="Company Logo" /></button>
+      
+      <div className="flex items-center relative">
         {isAuthenticated ? (
           <>
-            <h1 className="text-white mr-4 text-xl'">Welcome, {user.name}</h1>
-            <button
-              className="h-10 px-4 font-bold text-lg bg-red-500 text-white rounded-2xl transition duration-200 ease-in-out hover:bg-red-400"
-              onClick={() => logout({ returnTo: window.location.origin })}
-            >
-              Logout
-            </button>
+            <h1 className="text-white mr-4 text-xl">Welcome, {user.name}</h1>
+            {showMytrips && <button className="mr-6 bg-white rounded-3xl w-24 h-14 text-blue-700 hover:bg-orange-500" onClick={() => {
+              setShowMytrips(false);
+              Navigate("/Mytrips");
+            }}>My Trips</button>}
+            <div className="relative">
+              <button onClick={() => setShowLogout(!showLogout)}>
+                <img src={user.picture} alt="User Profile" className="rounded-full h-14 cursor-pointer" />
+              </button>
+              {showLogout && (
+                <div className="absolute right-0 mt-2 bg-white rounded-md shadow-lg z-10">
+                  <button
+                    className="h-10 w-full font-bold text-lg text-red-600 rounded-2xl transition duration-200 ease-in-out hover:bg-red-500 hover:text-white"
+                    onClick={() => logout({ returnTo: window.location.origin })}
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
           </>
         ) : (
           <button
@@ -33,4 +55,3 @@ const Header = () => {
 };
 
 export default Header;
-

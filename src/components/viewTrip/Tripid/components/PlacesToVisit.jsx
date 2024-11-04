@@ -10,7 +10,6 @@ const PlacesToVisit = ({ trip }) => {
             <h3 className="font-semibold text-xl text-blue-800 mb-3">
               {item.day}
             </h3>
-            <p className="text-orange-600 text-lg mb-2 text-bold ">Best time to visit: {item.bestTimeToVisit}</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {item.plan?.map((place, placeIndex) => (
                 <PlaceCardItem key={placeIndex} place={place} />
