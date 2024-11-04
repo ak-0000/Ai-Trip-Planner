@@ -265,7 +265,7 @@ const Trip = () => {
                 </div>
               ))}
             </div>
-          <div className=" mx-[490px]">
+          <div className=" mx-[840px]">
             <Button type="submit" disabled={loading} className="ml-[500px] mb-[80px] h-14 ">
               {loading ? "Generating..." : "Generate Trip"}
             </Button>
