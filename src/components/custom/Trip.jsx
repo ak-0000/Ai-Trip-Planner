@@ -168,7 +168,7 @@ const Trip = () => {
     <>
       <form
         onSubmit={handleSubmit}
-        className="sm:px-10 md:px-32 lg:px-56 xl:px-72 px-5 mt-20"
+        className="px-4 sm:px-10 md:px-32 lg:px-56 xl:px-72 mt-20"
       >
         <h2 className="font-bold text-3xl">Tell us your Travel Preference</h2>
         <p className="mt-3 text-gray-500 text-xl">
@@ -179,9 +179,7 @@ const Trip = () => {
         <div className="flex flex-col gap-10">
           {/* Destination */}
           <div className="mt-14">
-            <h2 className="text-xl ">
-              What is your destination of choice?
-            </h2>
+            <h2 className="text-xl ">What is your destination of choice?</h2>
             <div className="relative w-full">
               <input
                 type="text"
@@ -230,7 +228,7 @@ const Trip = () => {
           {/* Budget */}
           <div>
             <h2 className="text-xl mt-6">What is your budget?</h2>
-            <div className="grid grid-cols-3 gap-5 mt-5">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-5 mt-5">
               {SelectBudgetOptions.map((item, index) => (
                 <div
                   key={index}
@@ -250,7 +248,7 @@ const Trip = () => {
           {/* Travelers */}
           <div>
             <h2 className="text-xl mt-4">Who is traveling?</h2>
-            <div className="grid grid-cols-3 gap-5 mt-5">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-5 mt-5">
               {SelectTravelesList.map((item, index) => (
                 <div
                   key={index}
@@ -265,14 +263,25 @@ const Trip = () => {
                 </div>
               ))}
             </div>
-          <div className=" mx-[840px]">
-            <Button type="submit" disabled={loading} className="ml-[500px] mb-[80px] h-14 ">
-              {loading ? "Generating..." : "Generate Trip"}
-            </Button>
-          </div>
           </div>
 
           {/* Generate Trip Button */}
+          <div className="mt-10">
+            <div className="hidden sm:block mx-[840px]">
+              <Button
+                type="submit"
+                disabled={loading}
+                className="ml-[500px] mb-[80px] h-14"
+              >
+                {loading ? "Generating..." : "Generate Trip"}
+              </Button>
+            </div>
+            <div className="block sm:hidden w-full mt-10">
+              <Button type="submit" disabled={loading} className="w-full h-14">
+                {loading ? "Generating..." : "Generate Trip"}
+              </Button>
+            </div>
+          </div>
         </div>
       </form>
 
@@ -282,8 +291,10 @@ const Trip = () => {
           <DialogDescription>
             You need to be logged in to save your trip data.
           </DialogDescription>
-          <Button onClick={Login}>Login</Button>
-          <Button onClick={closeDialog}>Cancel</Button>
+          <div className="flex justify-end gap-4 mt-4">
+            <Button onClick={Login}>Login</Button>
+            <Button onClick={closeDialog}>Cancel</Button>
+          </div>
         </DialogContent>
       </Dialog>
     </>
