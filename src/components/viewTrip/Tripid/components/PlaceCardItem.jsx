@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const PlaceCardItem = ({ place }) => {
-  // console.log(place);
   const [photourl, SetPhotourl] = useState("");
   const [loading, setLoading] = useState(false);
   const [placeData, setPlaceData] = useState(null);
@@ -17,8 +16,7 @@ const PlaceCardItem = ({ place }) => {
     try {
       setLoading(true);
 
-      const destination = place.placeName;
-      //   console.log("Destination:", destination);
+      const destination = place?.placeName;
 
       if (!destination || typeof destination !== "string") {
         console.error("Invalid destination:", destination);
@@ -27,23 +25,16 @@ const PlaceCardItem = ({ place }) => {
       }
 
       const result = await GETPLACEDETAILS(destination);
-      //   console.log(result.data.results[0].photos[0].photo_reference);
-      const PhotoUrl = PHOTO_REF_URL.replace(
-        `{Name}`,
-        result.data.results[0].photos[0].photo_reference
-      );
-      // console.log(result);
-      // console.log(PhotoUrl);
-      SetPhotourl(PhotoUrl);
+      const placeInfo = result?.data?.results?.[0];
 
-      if (
-        result.data &&
-        result.data.results &&
-        result.data.results.length > 0
-      ) {
-        setPlaceData(result.data.results[0]);
+      if (placeInfo?.photos?.length > 0) {
+        const photoRef = placeInfo.photos[0].photo_reference;
+        const photoUrl = PHOTO_REF_URL(photoRef);
+        SetPhotourl(photoUrl);
+        setPlaceData(placeInfo);
       } else {
-        setError("No place data found.");
+        SetPhotourl("/placeholder.jpg");
+        setError("No photo found for this place.");
       }
     } catch (error) {
       console.error("Error fetching place photo:", error);
@@ -55,28 +46,28 @@ const PlaceCardItem = ({ place }) => {
 
   return (
     <Link
-      to={
-        "https://www.google.com/maps/search/?api=1&query=" +
-        encodeURIComponent(place?.placeName)
-      }
+      to={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+        place?.placeName
+      )}`}
       target="_blank"
       className="hover:scale-105 transition-all cursor-pointer"
     >
       <div className="bg-blue-50 border rounded-xl p-4 shadow-md hover:shadow-lg transition-shadow flex gap-4">
         <img
-          src={photourl}
-          alt={place.placeName}
+          src={photourl || "/placeholder.jpg"}
+          alt={place?.placeName}
           className="w-32 h-32 object-cover rounded-lg"
         />
         <div>
-          <h3 className="font-bold text-lg text-black">{place.placeName}</h3>
-          <p className="text-sm text-gray-600">{place.placeDetails}</p>
+          <h3 className="font-bold text-lg text-black">{place?.placeName}</h3>
+          <p className="text-sm text-gray-600">{place?.placeDetails}</p>
           <p className="text-sm text-gray-600">
-            Time to travel: {place.timeToTravel}
+            Time to travel: {place?.timeToTravel}
           </p>
         </div>
       </div>
     </Link>
   );
 };
+
 export default PlaceCardItem;

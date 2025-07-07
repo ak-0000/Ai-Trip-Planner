@@ -3,11 +3,10 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const HotelCardItem = ({ hotel }) => {
-//   console.log(hotel);
-const [loading, setLoading] = useState(false);
-const [placeData, setPlaceData] = useState(null);
-const [error, setError] = useState(null);
-const [photourl, SetPhotourl] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [placeData, setPlaceData] = useState(null);
+  const [error, setError] = useState(null);
+  const [photourl, setPhotourl] = useState("");
 
   useEffect(() => {
     Getplacephoto();
@@ -17,8 +16,7 @@ const [photourl, SetPhotourl] = useState("");
     try {
       setLoading(true);
 
-      const destination = hotel.hotelName;
-    //   console.log("Destination:", destination);
+      const destination = hotel?.hotelName;
 
       if (!destination || typeof destination !== "string") {
         console.error("Invalid destination:", destination);
@@ -27,21 +25,16 @@ const [photourl, SetPhotourl] = useState("");
       }
 
       const result = await GETPLACEDETAILS(destination);
-      //   console.log(result.data.results[0].photos[0].photo_reference);
-      const PhotoUrl = PHOTO_REF_URL.replace(
-        `{Name}`,
-        result.data.results[0].photos[0].photo_reference
-      );
-      SetPhotourl(PhotoUrl);
+      const place = result?.data?.results?.[0];
 
-      if (
-        result.data &&
-        result.data.results &&
-        result.data.results.length > 0
-      ) {
-        setPlaceData(result.data.results[0]);
+      if (place?.photos?.length > 0) {
+        const photoRef = place.photos[0].photo_reference;
+        const PhotoUrl = PHOTO_REF_URL(photoRef); // ✅ Correct function usage
+        setPhotourl(PhotoUrl);
+        setPlaceData(place);
       } else {
-        setError("No place data found.");
+        setPhotourl("/placeholder.jpg"); // Optional: show fallback
+        setError("No photo found for this place.");
       }
     } catch (error) {
       console.error("Error fetching place photo:", error);
@@ -50,6 +43,7 @@ const [photourl, SetPhotourl] = useState("");
       setLoading(false);
     }
   };
+
   return (
     <Link
       to={
@@ -61,7 +55,7 @@ const [photourl, SetPhotourl] = useState("");
     >
       <div className="bg-blue-50 p-4 rounded-lg shadow-md">
         <img
-          src={photourl}
+          src={photourl || "/placeholder.jpg"} // fallback if empty
           alt={hotel?.hotelName}
           className="w-full h-40 object-cover rounded-md mb-4"
         />

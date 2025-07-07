@@ -41,15 +41,19 @@ const Trip = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `https://maps.gomaps.pro/maps/api/place/autocomplete/json?input=${searchQuery}&key=${
-          import.meta.env.VITE_GOOGLE_API_KEY
-        }`
+        `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(
+          searchQuery
+        )}&key=${import.meta.env.VITE_GOOGLE_API_KEY}`
       );
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
+
       const data = await response.json();
-      setPlaceResults(data.predictions);
+
+      if (data.status === "OK" && data.predictions) {
+        setPlaceResults(data.predictions);
+      } else {
+        console.error("Autocomplete failed:", data.status, data.error_message);
+        setPlaceResults([]);
+      }
     } catch (error) {
       console.error("Error fetching places:", error);
       toast.error("Failed to fetch places. Please try again.");
