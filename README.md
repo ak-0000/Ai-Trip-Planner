@@ -1,115 +1,63 @@
-✈️ AI Trip Planner
-🚀 About the Project
-AI Trip Planner is a full-stack web application that helps users plan personalized travel itineraries using the power of AI (Gemini API) and Google Places API. It allows users to:
+# ✈️ AI Trip Planner
 
-Search for destinations with autocomplete suggestions,
+AI Trip Planner is a full-stack web application that helps users effortlessly plan personalized travel itineraries using **Gemini AI** and the **Google Places API**. It allows users to:
 
-Select trip preferences like duration, budget, and travel group,
+- 🔍 Search destinations with autocomplete
+- 🎯 Select trip preferences (duration, budget, travel group)
+- 🤖 Get AI-generated itineraries instantly
+- 🏨 View suggested places, hotels, and activities
+- 💾 Save and revisit trips securely using Firebase
 
-Get a fully AI-generated travel itinerary,
+---
 
-View recommended places, hotels, and activities,
+## 💡 Inspiration
 
-Save and revisit trips using Firebase integration.
+Planning trips manually is time-consuming — juggling between hotel websites, maps, and blogs. This app aims to solve that by automating smart itinerary creation using AI, making trip planning fast, fun, and easy.
 
-This project combines real-time user interaction with generative AI and geolocation services to create an engaging travel planning experience.
+---
+### ScreenShots
 
-💡 Inspiration
-Planning trips manually is time-consuming — juggling multiple sites for hotels, activities, and routes. I wanted to simplify this using AI and automation. The goal was to build a tool that takes in user preferences and generates a smart, human-like travel plan within seconds.
+<img width="1354" height="730" alt="image" src="https://github.com/user-attachments/assets/882f17f9-0e62-48ef-beb2-d80c4679aa73" />
 
-🧠 What I Learned
-During this project, I explored and learned:
+<img width="1467" height="842" alt="image" src="https://github.com/user-attachments/assets/a83d32c0-ff1a-4c8a-afde-a7acc4cc6ce2" />
 
-🔍 Google Places Autocomplete API for live search suggestions
+<img width="1581" height="464" alt="image" src="https://github.com/user-attachments/assets/5e07a7cc-4845-48dd-b408-07fe513a601a" />
 
-📸 How to get place photos using photo_reference
+<img width="1579" height="828" alt="image" src="https://github.com/user-attachments/assets/f9756526-3656-40a9-a3b7-968968d546bd" />
 
-🔥 Firebase for storing and retrieving user trips securely
+---
+## 🧠 What I Learned
 
-🤖 Integrating Gemini AI (Google) to generate dynamic travel itineraries
+- 🔍 Google Places Autocomplete API for live search
+- 📸 Fetching images using `photo_reference`
+- 🔥 Firebase Firestore & secure Firestore rules
+- 🤖 Prompt engineering with Gemini Pro
+- ⚛️ React best practices (`useCallback`, debouncing)
+- 🧪 CORS handling, API error management
+- 🌐 Vite for modern frontend build/deployment
 
-🛡️ Writing secure Firestore rules
+---
 
-⚛️ React best practices including useCallback, debouncing, and conditional rendering
+## 🛠️ Tech Stack
 
-🧪 Debugging CORS issues and handling API errors gracefully
+| Layer       | Tech Used                                             |
+|-------------|--------------------------------------------------------|
+| **Frontend** | React.js, Tailwind CSS, Vite                          |
+| **Backend**  | Firebase Firestore (NoSQL, serverless)                |
+| **APIs**     | Google Places API (Autocomplete, Photos), Gemini Pro |
+| **Auth**     | Auth0                                                 |
+| **State**    | React Hooks, Zustand (if used)                        |
 
-🌐 Deploying full-stack apps using modern build tools like Vite
+---
 
-🛠️ Tech Stack
-Frontend: React.js, Tailwind CSS, Vite
+## 🏗️ How I Built It
 
-Backend: Firebase Firestore (NoSQL)
-
-APIs Used:
-
-Google Places API (Autocomplete, Photos)
-
-Gemini Pro (AI travel planning)
-
-Authentication: Auth0
-
-State Management: React Hooks, Zustand (if used)
-
-Build Tool: Vite
-
-🏗️ How I Built It
-UI Design:
-
-Designed a responsive form to collect user preferences
-
-Created reusable components for Places, Hotels, and Trips
-
-Autocomplete:
-
-Integrated Google’s Places API with debounced input
-
-Fetched suggestions and let users select one
-
-Trip Generation:
-
-Passed destination, days, budget, and travel group into an AI prompt
-
-Used Gemini Pro to generate travel itineraries
-
-Data Persistence:
-
-Stored user selections and AI output in Firebase Firestore
-
-Secured access with Firestore rules and Auth0 authentication
-
-Enhancements:
-
-Photo fetching using Google Places photo_reference
-
-Google Maps links for destination viewing
-
-Error handling and loading indicators
-
-⚠️ Challenges I Faced
-❌ Google Maps API returns 200 even for errors → had to inspect data.status
-
-🧵 Debounce was tricky to implement properly without triggering on every keystroke
-
-🛑 Firestore initially blocked writes due to expired rules
-
-🌍 CORS issues when calling Google API directly → needed to use proper domain + set headers
-
-🔑 Managing and securing API keys
-
-📦 Handling undefined data like missing photos[0] or empty predictions
-
-📸 Screenshots
-(Add screenshots of your app UI, autocomplete, AI itinerary, trip view, etc.)
-
-✅ Future Improvements
-Add Google Maps embed for trip route
-
-Add hotel booking APIs (e.g., Booking.com or Amadeus)
-
-Allow user customization on generated itinerary
-
-Export trip as PDF or share with others
-
-Add weather forecasts for travel dates
-
+- **UI Design**: Responsive form to collect trip preferences
+- **Autocomplete**: Debounced Google Places search input
+- **AI Integration**: Gemini API used to generate itineraries based on preferences
+- **Persistence**: Stored trips in Firestore with Auth0-secured access
+- **Enhancements**:
+  - Fetch Google Maps photos using `photo_reference`
+  - View destinations in Google Maps
+  - Handle API and CORS errors gracefully
+---
