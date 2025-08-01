@@ -40,13 +40,13 @@ Planning trips manually is time-consuming — juggling between hotel websites, m
 
 ## 🛠️ Tech Stack
 
-| Layer       | Tech Used                                             |
+| Layer       | Tech Used                                              |
 |-------------|--------------------------------------------------------|
 | **Frontend** | React.js, Tailwind CSS, Vite                          |
-| **Backend**  | Firebase Firestore (NoSQL, serverless)                |
-| **APIs**     | Google Places API (Autocomplete, Photos), Gemini Pro |
+| **Backend**  | Firebase Firestore                                    |
+| **APIs**     | Google Places API (Autocomplete, Photos), Gemini Pro  |
 | **Auth**     | Auth0                                                 |
-| **State**    | React Hooks, Zustand (if used)                        |
+| **State**    | React Hooks                                           |
 
 ---
 
